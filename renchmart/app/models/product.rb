@@ -1,6 +1,7 @@
-class Category < ApplicationRecord
-  has_many :products, dependent: :destroy
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+class Product < ApplicationRecord
+  belongs_to :category
+  validates :name, presence: true
+  validates :price, presence: true
   mount_uploader :picture, PictureUploader
   validate  :picture_size
   default_scope -> { order(created_at: :desc) }
@@ -11,5 +12,4 @@ class Category < ApplicationRecord
       errors.add(:picture, "should be less than 5MB")
     end
   end
-
 end

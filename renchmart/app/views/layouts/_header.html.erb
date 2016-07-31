@@ -3,7 +3,17 @@
     <%= link_to "RenchMart", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Products", '#'%></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Products <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%=link_to "All Products", products_url%></li>
+            <% (category_index.order:id).each do |category|%>
+              <li><%= link_to "#{category.name}", "/categories/#{category.id}" %></li>
+            <%end%>
+          </ul>
+        </li>
         <% if logged_in? %>
           <% if current_user.admin? %>
             <li><%= link_to "Users", users_url %></li>
